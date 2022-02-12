@@ -8,25 +8,19 @@ const OTP = require("../../schema/otp");
 router.post("/login", async (req, res) => {
 	try {
 		const { username, password } = req.body;
-		const driverData = await Driver.findOne({ username, password });
+		const driverData = await Driver.findOne({ username });
 
-		if (!driverData) {
+		if (!driverData || driverData.comparePassword(password)) {
 			res.status(200).send("Either Username or Password is incorrect");
 		} else {
-			const token = jwt.sign(
-				{
-					sub: driverData.id,
-				},
-				process.env.JWT_SECRET,
-				{ expiresIn: "1day", issuer: "DriveKart" }
-			);
+			const token = driverData.generateToken();
 			res.status(200).json({
 				token,
-				user: driverData,
+				user: driverData.getUserData(),
 			});
 		}
 	} catch (err) {
-		console.log("Error occured while Login the user", érr.message);
+		console.log("Error occured while Login the user", err.message);
 		res.status(503).send("Server Internal Error");
 	}
 });
@@ -66,16 +60,10 @@ router.post("/otp/verify", async (req, res) => {
 			res.status(203).send("Your OTP has expired");
 		} else {
 			if (OTP_doc.compareOTP(otp)) {
-				const token = jwt.sign(
-					{
-						sub: driver.id,
-					},
-					process.env.JWT_SECRET,
-					{ expiresIn: "1day", issuer: "DriveKart" }
-				);
+				const token = driver.generateToken();
 				res.status(200).json({
 					token,
-					user: driver,
+					user: driver.getUserData(),
 				});
 			} else {
 				res.status(203).send("Your OTP is incorrect");
