@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const DealerRoutes= require("./routes/dealer/signup")
 require("dotenv").config();
 
 // All the middlewares
@@ -23,3 +24,5 @@ app.get("/", (req, res) => {
 app.listen(process.env.PORT || 3000, () => {
 	console.log("Server is running on port", process.env.PORT || 3000);
 });
+
+app.use("/dealer", DealerRoutes);
