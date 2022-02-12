@@ -18,8 +18,10 @@
 	},
 	"homepage": "https://github.com/pradeepsh2203/DriveKart-Api#readme",
 	"dependencies": {
+		"cors": "^2.8.5",
 		"dotenv": "^16.0.0",
 		"express": "^4.17.2",
+		"mongoose": "^6.2.1",
 		"nodemailer": "^6.7.2"
 	},
 	"devDependencies": {
