@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+// Routes
+const DriverLoginRouter = require("./routes/driver/login");
+
 // All the middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ strict: false }));
@@ -16,6 +19,7 @@ mongoose.connect(process.env.DB_URI, () => {
 });
 
 // Routes
+app.use("/driver", DriverLoginRouter);
 app.get("/", (req, res) => {
 	res.send("Your server is woking fine!!");
 });

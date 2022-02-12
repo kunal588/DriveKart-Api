@@ -15,7 +15,8 @@ const driver = new Schema({
 	capacity: Number,
 	transporterName: String,
 	experience: Number,
-	book: [mongoose.Types.ObjectIdj],
+	book: [mongoose.Types.ObjectId],
+	otp: mongoose.Types.ObjectId,
 });
 
 const Route = new Schema({

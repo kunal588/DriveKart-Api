@@ -16,6 +16,7 @@ const Dealer = new Schema({
 	state: String,
 	city: String,
 	booked: [[mongoose.Types.ObjectId, String, String]], // [driverId,from,To]
+	otp: { type: Number, index: { expires: "5m" } },
 });
 
 module.exports = mongoose.model("dealer", Dealer);
