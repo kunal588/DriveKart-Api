@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const DealerRoutes= require("./routes/dealer/signup")
+const DriverRoutes= require("./routes/driver/signup")
 require("dotenv").config();
 
 // All the middlewares
@@ -26,3 +27,4 @@ app.listen(process.env.PORT || 3000, () => {
 });
 
 app.use("/dealer", DealerRoutes);
+app.use("/driver", DriverRoutes);
