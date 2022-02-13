@@ -79,9 +79,17 @@ Driver.methods.getUserData = function () {
 };
 
 const Route = new Schema({
-	from: { type: String, unique: true },
-	to: { type: String, unique: true },
+	fromState: { type: String },
+	fromCity: { type: String },
+	toState: { type: String },
+	toCity: { type: String },
+	route: { type: String, unique: true },
 	Drivers: [Driver],
+});
+
+Route.pre("save", function (next) {
+	this.route = `${this.fromState},${this.fromCity} -> ${this.toState},${this.toCity}`;
+	next(null);
 });
 
 module.exports.Driver = mongoose.model("driver", Driver);
