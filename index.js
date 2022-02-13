@@ -10,6 +10,8 @@ const DriverLoginRouter = require("./routes/driver/login");
 const DealerSignUpRoutes = require("./routes/dealer/signup");
 const DriverSignUpRoutes = require("./routes/driver/signup");
 const DealerLoginRoutes = require("./routes/dealer/login");
+const DriverRoutes = require("./routes/driver/other");
+
 
 // All the middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -24,8 +26,10 @@ mongoose.connect(process.env.DB_URI, () => {
 // Routes
 app.use("/driver", DriverLoginRouter);
 app.use("/driver", DriverSignUpRoutes);
+app.use("/driver", DriverRoutes);
 app.use("/dealer", DealerSignUpRoutes);
 app.use("/dealer", DealerLoginRoutes);
+
 app.get("/", (req, res) => {
 	res.send("Your server is woking fine!!");
 });

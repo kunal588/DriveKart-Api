@@ -68,7 +68,7 @@ router.post("/signup", (req, res) => {
 				] = `An account with that ${Object.keys(
 					error.keyValue
 				)} already exists.`;
-				console.log("Driver Username alreadt exist");
+				console.log("Driver Username already exist");
 				res.status(400).send(error_json);
 			} else {
 				try {

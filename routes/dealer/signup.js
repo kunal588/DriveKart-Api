@@ -1,6 +1,6 @@
 var express = require("express");
 const router = express.Router();
-const Dealer = require("../../schema/dealer");
+const { Dealer } = require("../../schema/dealer");
 const validator = require("validator");
 
 router.post("/signup", (req, res) => {
@@ -28,9 +28,9 @@ router.post("/signup", (req, res) => {
 			error_json.email = error.errors["email"].message;
 	}
 	if (!validator.isNumeric(new_dealer.weight, { no_symbols: true }))
-		error_json.weight = "enter valid weight";
+		error_json.weight = "Enter valid weight";
 	if (!validator.isNumeric(new_dealer.quantity, { no_symbols: true }))
-		error_json.quantity = "enter valid quantity";
+		error_json.quantity = "Enter valid quantity";
 	if (Object.keys(error_json).length !== 0) {
 		res.status(400).send(error_json);
 	} else {
