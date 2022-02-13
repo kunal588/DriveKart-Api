@@ -3,11 +3,13 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
-const DealerRoutes= require("./routes/dealer/signup")
 require("dotenv").config();
 
-// Routes
+// Routers
 const DriverLoginRouter = require("./routes/driver/login");
+const DealerSignUpRoutes = require("./routes/dealer/signup");
+const DriverSignUpRoutes = require("./routes/driver/signup");
+const DealerLoginRoutes = require("./routes/dealer/login");
 
 // All the middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -21,6 +23,9 @@ mongoose.connect(process.env.DB_URI, () => {
 
 // Routes
 app.use("/driver", DriverLoginRouter);
+app.use("/driver", DriverSignUpRoutes);
+app.use("/dealer", DealerSignUpRoutes);
+app.use("/dealer", DealerLoginRoutes);
 app.get("/", (req, res) => {
 	res.send("Your server is woking fine!!");
 });
@@ -28,5 +33,3 @@ app.get("/", (req, res) => {
 app.listen(process.env.PORT || 3000, () => {
 	console.log("Server is running on port", process.env.PORT || 3000);
 });
-
-app.use("/dealer", DealerRoutes);

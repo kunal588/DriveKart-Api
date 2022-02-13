@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Driver } = require("../../schema/driver");
-const jwt = require("jsonwebtoken");
 const otpGen = require("otp-generator");
 const OTP = require("../../schema/otp");
 
@@ -9,8 +8,7 @@ router.post("/login", async (req, res) => {
 	try {
 		const { username, password } = req.body;
 		const driverData = await Driver.findOne({ username });
-
-		if (!driverData || driverData.comparePassword(password)) {
+		if (!driverData || !(await driverData.comparePassword(password))) {
 			res.status(200).send("Either Username or Password is incorrect");
 		} else {
 			const token = driverData.generateToken();
@@ -42,7 +40,6 @@ router.post("/otp/generate", async (req, res) => {
 			{ otp: otp_doc.id }
 		);
 		res.send("OTP has been sent successfully");
-		console.log(result);
 	} catch (err) {
 		console.log("Error occured while generating OTP", err.message);
 		res.status(503).send("Server Internal Error");
@@ -52,7 +49,13 @@ router.post("/otp/generate", async (req, res) => {
 router.post("/otp/verify", async (req, res) => {
 	try {
 		const { email, otp } = req.body;
-		const driver = await Driver.findOne({ email });
+		const driver = await Driver.findOne({ email: email });
+		if (!driver || !driver.otp) {
+			res.status(400).send(
+				"User does not exist or he has not asked for otp before"
+			);
+			return;
+		}
 
 		const OTP_doc = await OTP.findById(driver.otp);
 
