@@ -4,6 +4,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
 
+const Booking = new Schema(
+	{
+		driverId: { type: mongoose.Types.ObjectId, required: true },
+		fromState: { type: String, required: true },
+		fromCity: { type: String, required: true },
+		toState: { type: String, required: true },
+		toCity: { type: String, required: true },
+	},
+	{ _id: false }
+);
+
 const Dealer = new Schema({
 	username: {
 		type: String,
@@ -27,7 +38,7 @@ const Dealer = new Schema({
 	quantity: String,
 	state: String,
 	city: String,
-	booked: [[mongoose.Types.ObjectId, String, String]], // [driverId,from,To]
+	booked: [Booking], // [driverId,from,To]
 	otp: mongoose.Types.ObjectId,
 });
 

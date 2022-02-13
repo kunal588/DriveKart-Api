@@ -1,6 +1,6 @@
 var express = require("express");
 const router = express.Router();
-const Dealer = require("../../schema/dealer");
+const { Dealer } = require("../../schema/dealer");
 const validator = require("validator");
 
 router.post("/signup", (req, res) => {

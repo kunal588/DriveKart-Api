@@ -10,6 +10,7 @@ const DriverLoginRouter = require("./routes/driver/login");
 const DealerSignUpRoutes = require("./routes/dealer/signup");
 const DriverSignUpRoutes = require("./routes/driver/signup");
 const DealerLoginRoutes = require("./routes/dealer/login");
+const DealerOtherRoutes = require("./routes/dealer/other");
 
 // All the middlewares
 app.use(express.urlencoded({ extended: true }));
@@ -26,6 +27,7 @@ app.use("/driver", DriverLoginRouter);
 app.use("/driver", DriverSignUpRoutes);
 app.use("/dealer", DealerSignUpRoutes);
 app.use("/dealer", DealerLoginRoutes);
+app.use("/dealer/other", DealerOtherRoutes);
 app.get("/", (req, res) => {
 	res.send("Your server is woking fine!!");
 });
