@@ -7,14 +7,14 @@ const OTP = require("../../schema/otp");
 router.post("/login", async (req, res) => {
 	try {
 		const { username, password } = req.body;
-		const driverData = await Dealer.findOne({ username });
-		if (!driverData || !(await driverData.comparePassword(password))) {
+		const dealerData = await Dealer.findOne({ username });
+		if (!dealerData || !(await dealerData.comparePassword(password))) {
 			res.status(200).send("Either Username or Password is incorrect");
 		} else {
-			const token = driverData.generateToken();
+			const token = dealerData.generateToken();
 			res.status(200).json({
 				token,
-				user: driverData.getUserData(),
+				user: dealerData.getUserData(),
 			});
 		}
 	} catch (err) {
