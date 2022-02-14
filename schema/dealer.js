@@ -84,6 +84,7 @@ Dealer.methods.getUserData = function () {
 		state: this.state,
 		city: this.city,
 		booked: this.booked,
+		id: this._id,
 	};
 
 	return obj;

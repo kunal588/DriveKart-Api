@@ -73,6 +73,7 @@ Driver.methods.getUserData = function () {
 		transporterName: this.transporterName,
 		experience: this.experience,
 		book: this.book,
+		id: this._id,
 	};
 
 	return obj;

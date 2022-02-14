@@ -7,7 +7,8 @@ const { Driver } = require("../../schema/driver");
 router.post("/", Auth, async (req, res) => {
 	try {
 		const dealerData = await Dealer.findById(req.body._id);
-		res.status(200).json(dealerData.getUserData());
+		if (dealerData) res.status(200).json(dealerData.getUserData());
+		else res.status(401).send("Unauthorised");
 	} catch (err) {
 		console.log(
 			"Error occured while seacrhing for dealer Info,",
@@ -20,7 +21,8 @@ router.post("/", Auth, async (req, res) => {
 router.post("/get/byId", Auth, async (req, res) => {
 	try {
 		const dealerData = await Dealer.findById(req.body.dealerId);
-		res.status(200).json(dealerData.getUserData());
+		if (dealerData) res.status(200).json(dealerData.getUserData());
+		else res.status(400).send("User does not exist");
 	} catch (err) {
 		console.log(
 			"Error occured while searching for a dealer Info",
