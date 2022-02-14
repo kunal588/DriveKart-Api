@@ -3,6 +3,7 @@ const router = express.Router();
 const { Driver } = require("../../schema/driver");
 const otpGen = require("otp-generator");
 const OTP = require("../../schema/otp");
+const nodemailer = require("nodemailer");
 
 router.post("/login", async (req, res) => {
 	try {
@@ -39,6 +40,25 @@ router.post("/otp/generate", async (req, res) => {
 			{ email },
 			{ otp: otp_doc.id }
 		);
+
+		// Sending mail
+		let transporter = nodemailer.createTransport({
+			service: "gmail",
+			auth: {
+				user: process.env.email,
+				pass: process.env.pass,
+			},
+		});
+
+		let mailOptions = {
+			from: `Team DriveKart<${process.env.transporter}>`,
+			to: `${email}`,
+			subject: "OTP verification for DriverKart",
+			html: `Your OTP for login is ${otp} .It would expire in 5 minutes. If you have not signed up for our service then this otp will not be valid`,
+		};
+
+		await transporter.sendMail(mailOptions);
+
 		res.send("OTP has been sent successfully");
 	} catch (err) {
 		console.log("Error occured while generating OTP", err.message);
