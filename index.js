@@ -20,21 +20,21 @@ app.use(cors());
 
 // Database Connnection
 mongoose.connect(process.env.DB_URI, () => {
-  console.log("Database Connected");
+	console.log("Database Connected");
 });
 
 // Routes
 app.use("/driver", DriverLoginRouter);
 app.use("/driver", DriverSignUpRoutes);
-app.use("/driver", DriverOtherRoutes);
+app.use("/driver/other", DriverOtherRoutes);
 app.use("/dealer", DealerSignUpRoutes);
 app.use("/dealer", DealerLoginRoutes);
 app.use("/dealer/other", DealerOtherRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Your server is woking fine!!");
+	res.send("Your server is woking fine!!");
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Server is running on port", process.env.PORT || 3000);
+	console.log("Server is running on port", process.env.PORT || 3000);
 });

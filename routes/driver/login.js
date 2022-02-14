@@ -9,7 +9,7 @@ router.post("/login", async (req, res) => {
 		const { username, password } = req.body;
 		const driverData = await Driver.findOne({ username });
 		if (!driverData || !(await driverData.comparePassword(password))) {
-			res.status(200).send("Either Username or Password is incorrect");
+			res.status(400).send("Either Username or Password is incorrect");
 		} else {
 			const token = driverData.generateToken();
 			res.status(200).json({

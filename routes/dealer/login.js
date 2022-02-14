@@ -9,7 +9,7 @@ router.post("/login", async (req, res) => {
 		const { username, password } = req.body;
 		const dealerData = await Dealer.findOne({ username });
 		if (!dealerData || !(await dealerData.comparePassword(password))) {
-			res.status(200).send("Either Username or Password is incorrect");
+			res.status(400).send("Either Username or Password is incorrect");
 		} else {
 			const token = dealerData.generateToken();
 			res.status(200).json({
@@ -49,7 +49,6 @@ router.post("/otp/generate", async (req, res) => {
 router.post("/otp/verify", async (req, res) => {
 	try {
 		const { email, otp } = req.body;
-		console.log(email, otp);
 		const dealer = await Dealer.findOne({ email: email });
 		if (!dealer || !dealer.otp) {
 			res.status(400).send(
@@ -57,7 +56,6 @@ router.post("/otp/verify", async (req, res) => {
 			);
 			return;
 		}
-		console.log(dealer);
 		const OTP_doc = await OTP.findById(dealer.otp);
 
 		if (!OTP_doc) {
