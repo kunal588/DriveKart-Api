@@ -49,7 +49,7 @@ router.post("/signup", (req, res) => {
       error_json.password = error.errors["password"].message;
     if (error.errors["email"]) error_json.email = error.errors["email"].message;
   }
-  if (!new_dealer.mobile.match(match_phoneNo))
+  if (!new_driver.mobile.match(match_phoneNo))
     error_json.mobile = "Enter valid Phone Number";
   if (!validator.isNumeric(new_driver.age, { no_symbols: true }))
     error_json.age = "enter valid age";
