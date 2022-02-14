@@ -32,7 +32,7 @@ const Dealer = new Schema({
 		validate: [validator.isEmail, "Enter a valid email address."],
 	},
 	name: String,
-	mobile: Number,
+	mobile: String,
 	material: String,
 	weight: String,
 	quantity: String,
@@ -86,7 +86,6 @@ Dealer.methods.getUserData = function () {
 		booked: this.booked,
 		id: this._id,
 	};
-
 	return obj;
 };
 

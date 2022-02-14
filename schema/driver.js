@@ -22,7 +22,7 @@ const Driver = new Schema({
 	},
 	name: String,
 	age: String,
-	mobile: Number,
+	mobile: String,
 	truckNum: String,
 	capacity: String,
 	transporterName: String,
