@@ -109,7 +109,7 @@ router.post("/signup", (req, res) => {
             route3toCity,
             new_driver
           );
-          res.status(200).send("ok");
+          res.status(200).send("driver added successfully");
         } catch (err) {
           console.log(
             "Error occured while adding routes for the driver,",

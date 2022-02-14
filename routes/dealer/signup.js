@@ -44,7 +44,7 @@ router.post("/signup", (req, res) => {
           error.keyValue
         )} already exists.`;
         res.status(400).send(error_json);
-      } else res.status(200).send("ok");
+      } else res.status(200).send("dealer added successfully");
     });
   }
 });
